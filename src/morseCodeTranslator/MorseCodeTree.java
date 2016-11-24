@@ -66,30 +66,88 @@ public class MorseCodeTree
 
 	protected String encode(String toEncode)
 	{
-		// TODO
 		/*
 		 * Uses CodeVisitor to talk to the array of Morse code symbols. Returns them
 		 * all into an String that is then shown to the user.
 		 */
-
+		String[] morseArray = ((CodeVisitor<String>) visitor).getMorseArray();
+		String morseString = "";
+		String encodeThis = toEncode.trim();
 		morseTree.levelOrderTraversal(visitor);
-		String[] fuck = ((CodeVisitor<String>) visitor).getMorseArray();
-		for (int j = 0; j < fuck.length; j++)
+		char singleChar;
+		int index;
+
+		// for (int j = 0; j < morseArray.length; j++)
+		// {
+		// System.out.println(morseArray[j]);
+		// }
+
+		for (int k = 0; k < encodeThis.length(); k++)
 		{
-			System.out.println(fuck[j]);
+			singleChar = encodeThis.toLowerCase().charAt(k);
+			if (singleChar == ' ')
+			{
+				morseString = morseString.trim();
+				morseString += "  ";
+			}
+			else
+				if (Character.isLetter(singleChar))
+				{
+					index = (int) singleChar;
+					morseString += morseArray[index - 97] + " ";
+				}
 		}
-		return null;
+
+		return morseString.trim();
 	} // encode()
 
-	protected String decode()
+	protected String decode(String toDecode)
 	{
-		// TODO
 		/*
 		 * Using the Morse code tree, and the fact that a '.' is a left branch and
 		 * '-' is a right branch, determine the letter that should be returned.
 		 */
+		BinaryTreeNode<String> currNode = morseTree.root();
+		String[] decodeThis = toDecode.split(" ");
+		String singleMorse;
+		char singleChar;
+		String alphaString = "";
 
-		return null;
+		for (int i = 0; i < decodeThis.length; i++)
+		{
+			currNode = morseTree.root();
+			singleMorse = decodeThis[i];
+
+			if (singleMorse.equals(""))
+			{
+				alphaString += " ";
+			}
+
+			for (int o = 0; o < singleMorse.length(); o++)
+			{
+				singleChar = singleMorse.charAt(o);
+
+				if (currNode.leftChild() == null
+						&& currNode.rightChild() == null)
+				{
+					break;
+				}
+				else
+					if (singleChar == '.')
+					{
+						currNode = currNode.leftChild();
+					}
+					else
+					{
+						currNode = currNode.rightChild();
+					}
+				if (o == singleMorse.length() - 1)
+				{
+					alphaString += currNode.element();
+				}
+			}
+		}
+		return alphaString;
 	}// decode()
 
 }
