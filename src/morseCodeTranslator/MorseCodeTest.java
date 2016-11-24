@@ -48,7 +48,10 @@ public class MorseCodeTest
 			assertEquals(morse.decode("      "), "");
 			assertEquals(morse.decode(""), " ");
 			assertEquals(morse.decode("......."), "");
-			assertEquals(morse.decode("... .--. .... .. -. -..-  --- ..-.  -... .-.. .- -.-. -.-  --.- ..- .- .-. - --..  .--- ..- -.. --. .  -- -.--  ...- --- .--"), "sphinx of black quartz judge my vow");
+			assertEquals(
+					morse.decode(
+							"... .--. .... .. -. -..-  --- ..-.  -... .-.. .- -.-. -.-  --.- ..- .- .-. - --..  .--- ..- -.. --. .  -- -.--  ...- --- .--"),
+					"sphinx of black quartz judge my vow");
 		}
 		catch (FileNotFoundException e)
 		{

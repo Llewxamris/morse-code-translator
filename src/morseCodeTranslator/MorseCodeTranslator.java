@@ -113,6 +113,8 @@ public class MorseCodeTranslator
 		JButton btnClear = new JButton("Clear");
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				textPane.setText("");
+				textArea.setText("");
 			}
 		});
 		btnClear.setBounds(404, 226, 157, 23);
