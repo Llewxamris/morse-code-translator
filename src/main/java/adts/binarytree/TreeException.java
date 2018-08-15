@@ -1,8 +1,8 @@
 package adts.binarytree;
 
 /**
- * The exception that is thrown whenever an operation on a tree is
- * in violation of a method precondition.
+ * The exception that is thrown whenever an operation on a tree is in violation
+ * of a method precondition.
  */
 public class TreeException extends RuntimeException {
 
@@ -10,7 +10,7 @@ public class TreeException extends RuntimeException {
     super();
   }
 
-  public TreeException( String errMsg ) {
-    super( " " + errMsg );
+  public TreeException(String errMsg) {
+    super(" " + errMsg);
   }
 }

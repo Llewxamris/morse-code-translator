@@ -1,8 +1,7 @@
 package adts.queue;
 
 /**
- * Thrown when there is an attempt to access the front
- * of an empty queue.
+ * Thrown when there is an attempt to access the front of an empty queue.
  */
 public class EmptyQueueException extends RuntimeException {
 
@@ -10,7 +9,7 @@ public class EmptyQueueException extends RuntimeException {
     super();
   }
 
-  public EmptyQueueException( String errMsg ) {
-    super( " " + errMsg );
+  public EmptyQueueException(String errMsg) {
+    super(" " + errMsg);
   }
 }

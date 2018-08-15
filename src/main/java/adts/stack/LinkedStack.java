@@ -11,28 +11,28 @@ public class LinkedStack<E> implements Stack<E> {
 
   public LinkedStack() {
     size = 0;
-    top = new SLNode<E> ();
+    top = new SLNode<E>();
   }
 
-  public void push( E element ) {
-    SLNode<E> newTop = new SLNode<E> ( element, top.getSuccessor() );
-    top.setSuccessor( newTop );
+  public void push(E element) {
+    SLNode<E> newTop = new SLNode<E>(element, top.getSuccessor());
+    top.setSuccessor(newTop);
     size++;
   }
 
   public E peek() {
-    if ( isEmpty() ) {
+    if (isEmpty()) {
       throw new EmptyStackException();
     }
     return top.getSuccessor().getElement();
   }
 
   public E pop() {
-    if ( isEmpty() ) {
+    if (isEmpty()) {
       throw new EmptyStackException();
     }
     SLNode<E> temp = top.getSuccessor();
-    top.setSuccessor( temp.getSuccessor() );
+    top.setSuccessor(temp.getSuccessor());
     size--;
     return temp.getElement();
   }
@@ -59,19 +59,21 @@ public class LinkedStack<E> implements Stack<E> {
 
     /**
      * Constructor. Initialize the node's data fields to the values provided.
-     * @param list_element - the value to be stored in this node.
+     * 
+     * @param list_element   - the value to be stored in this node.
      * @param successor_node - a reference to the node's new successor.
      */
-    public SLNode( E list_element, SLNode<E> successor_node ) {
+    public SLNode(E list_element, SLNode<E> successor_node) {
       this.element = list_element;
       this.successor = successor_node;
     }
 
     /**
      * Set the element field for this node.
+     * 
      * @param list_element - the new value to be stored in this node.
      */
-    public void setElement( E list_element ) {
+    public void setElement(E list_element) {
       this.element = list_element;
     }
 
@@ -91,9 +93,10 @@ public class LinkedStack<E> implements Stack<E> {
 
     /**
      * Set the successor to this node in the list.
+     * 
      * @param successor_node - a reference to the node's new successor.
      */
-    public void setSuccessor( SLNode<E> successor_node ) {
+    public void setSuccessor(SLNode<E> successor_node) {
       this.successor = successor_node;
     }
   }

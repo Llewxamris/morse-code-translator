@@ -1,8 +1,8 @@
 package adts.binarytree;
 
 /**
- * A Visitor class for counting the number of nodes in a tree.
- * This class implements the Visitor Design Pattern.
+ * A Visitor class for counting the number of nodes in a tree. This class
+ * implements the Visitor Design Pattern.
  */
 
 public class NodeCountVisitor<E> implements Visitor<E> {
@@ -17,6 +17,7 @@ public class NodeCountVisitor<E> implements Visitor<E> {
 
   /**
    * Return the count of the number of nodes found.
+   * 
    * @return the number of nodes found in the tree.
    */
   public int count() {
@@ -24,12 +25,11 @@ public class NodeCountVisitor<E> implements Visitor<E> {
   }
 
   /**
-   * Visit the specified node.
-   * All the method does is increment the counter if
+   * Visit the specified node. All the method does is increment the counter if
    * <tt>node</tt> is not null.
    */
-  public void visit( BinaryTreeNode<E> node ) {
-    if ( node != null ) {
+  public void visit(BinaryTreeNode<E> node) {
+    if (node != null) {
       count++;
     }
   }

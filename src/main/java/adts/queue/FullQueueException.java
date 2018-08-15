@@ -1,8 +1,7 @@
 package adts.queue;
 
 /**
- * Thrown when there is an attempt to add an element to the
- * a full queue.
+ * Thrown when there is an attempt to add an element to the a full queue.
  */
 public class FullQueueException extends RuntimeException {
 
@@ -10,7 +9,7 @@ public class FullQueueException extends RuntimeException {
     super();
   }
 
-  public FullQueueException( String errMsg ) {
-    super( " " + errMsg );
+  public FullQueueException(String errMsg) {
+    super(" " + errMsg);
   }
 }
