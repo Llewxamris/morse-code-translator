@@ -1,7 +1,7 @@
 package adts.binarytree;
 
-import adts.queue.Queue;
-import adts.queue.CircularQueue;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * A Linked Structure implementaton of the <tt>BinaryTree</tt>
@@ -302,17 +302,17 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
 
     BinaryTreeNode<E> nodeToVisit;
     BinaryTreeNode<E> child;
-    Queue<BinaryTreeNode<E>> nodeQueue =
-        new CircularQueue<BinaryTreeNode<E>> ();
-    nodeQueue.enqueue( this.root() );
+
+    Queue<BinaryTreeNode<E>> nodeQueue = new LinkedList<BinaryTreeNode<E>>();
+    nodeQueue.add( this.root() );
     while ( !nodeQueue.isEmpty() ) {
-      nodeToVisit = nodeQueue.dequeue();
+      nodeToVisit = nodeQueue.remove();
       visitor.visit( nodeToVisit );
       if ( ( child = nodeToVisit.leftChild() ) != null ) {
-        nodeQueue.enqueue( child );
+        nodeQueue.add( child );
       }
       if ( ( child = nodeToVisit.rightChild() ) != null ) {
-        nodeQueue.enqueue( child );
+        nodeQueue.remove( child );
       }
     }
   }

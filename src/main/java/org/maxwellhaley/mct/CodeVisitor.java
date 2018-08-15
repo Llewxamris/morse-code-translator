@@ -1,8 +1,9 @@
 package org.maxwellhaley.mct;
 
+import java.util.Stack;
+
 import adts.binarytree.BinaryTreeNode;
 import adts.binarytree.Visitor;
-import adts.stack.LinkedStack;
 
 public class CodeVisitor<E> implements Visitor<E>
 {
@@ -11,7 +12,7 @@ public class CodeVisitor<E> implements Visitor<E>
 	public void visit(BinaryTreeNode<E> node)
 	{
 		System.out.println(node.element());
-		LinkedStack<Character> morseStack = new LinkedStack<Character>();
+		Stack<Character> morseStack = new Stack<Character>();
 		String morse = "";
 		String theElement;
 		BinaryTreeNode<E> currNode = node;
