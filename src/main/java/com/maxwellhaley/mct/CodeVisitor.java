@@ -1,4 +1,4 @@
-package org.maxwellhaley.mct;
+package com.maxwellhaley.mct;
 
 import java.util.Stack;
 
