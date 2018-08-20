@@ -40,7 +40,7 @@ public class MorseCodeTree {
     String[] morseSymbols = this.generateMorseArray(traversedNodes);
     String encodedMessage = "";
 
-    for (var k = 0; k < message.length(); k++) {
+    for (int k = 0; k < message.length(); k++) {
       if (message.charAt(k) == ' ') {
         encodedMessage.trim();
         encodedMessage += "  ";
@@ -58,7 +58,7 @@ public class MorseCodeTree {
     String[] morseSymbols = message.split(" ");
     String decodedMessage = "";
 
-    for (var k = 0; k < morseSymbols.length; k++) {
+    for (int k = 0; k < morseSymbols.length; k++) {
       MorseCodeNode currentNode = this.root;
       String morseSymbol = morseSymbols[k];
 
@@ -66,7 +66,7 @@ public class MorseCodeTree {
         decodedMessage += " ";
       }
 
-      for (var l = 0; l < morseSymbol.length(); l++) {
+      for (int l = 0; l < morseSymbol.length(); l++) {
         char singleChar = morseSymbol.charAt(l);
 
         if (currentNode.getLeftChildNode() == null
@@ -102,7 +102,7 @@ public class MorseCodeTree {
           String morse = temp[1];
           MorseCodeNode lastNode = root;
 
-          for (var k = 0; k < morse.length(); k++) {
+          for (int k = 0; k < morse.length(); k++) {
             if (morse.length() - 1 == k) {
               if (morse.charAt(k) == '.') {
                 lastNode.setLeftChildNode(new MorseCodeNode(alpha, lastNode));
