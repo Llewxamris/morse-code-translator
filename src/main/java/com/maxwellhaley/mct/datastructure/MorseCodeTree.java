@@ -60,7 +60,35 @@ public class MorseCodeTree {
   }
 
   String decode(String message) {
-    return null;
+    String[] morseSymbols = message.split(" ");
+    String decodedMessage = "";
+
+    for (var k = 0; k < morseSymbols.length; k++) {
+      MorseCodeNode currentNode = this.root;
+      String morseSymbol = morseSymbols[k];
+
+      if (morseSymbol.equals("")) {
+        decodedMessage += " ";
+      }
+
+      for (var l = 0; l < morseSymbol.length(); l++) {
+        char singleChar = morseSymbol.charAt(l);
+
+        if (currentNode.getLeftChildNode() == null
+                && currentNode.getRightChildNode() == null) {
+          break;
+        } else if (singleChar == '.') {
+          currentNode = currentNode.getLeftChildNode();
+        } else {
+          currentNode = currentNode.getRightChildNode();
+        }
+
+        if (l == morseSymbol.length() - 1) {
+          decodedMessage += currentNode.getValue();
+        }
+      }
+    }
+    return decodedMessage;
   }
 
   private void init() throws IOException {
