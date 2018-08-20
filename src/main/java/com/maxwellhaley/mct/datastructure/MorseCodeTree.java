@@ -13,16 +13,11 @@ public class MorseCodeTree {
 
   private MorseCodeNode root;
 
-  MorseCodeTree() {
-    try {
+  public MorseCodeTree() throws IOException {
       this.init();
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
   }
 
-  String encode(String message) {
+  public String encode(String message) {
     message = message.trim().toLowerCase();
 
     Queue<MorseCodeNode> nodes = new LinkedList<>();
@@ -59,7 +54,7 @@ public class MorseCodeTree {
     return encodedMessage;
   }
 
-  String decode(String message) {
+  public String decode(String message) {
     String[] morseSymbols = message.split(" ");
     String decodedMessage = "";
 
