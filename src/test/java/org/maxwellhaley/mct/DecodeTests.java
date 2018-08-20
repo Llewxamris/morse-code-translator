@@ -3,13 +3,16 @@ package org.maxwellhaley.mct;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
+
+import com.maxwellhaley.mct.datastructure.MorseCodeTree;
 
 class DecodeTests {
 
   @Test
-  void decodeSimpleSentance() throws FileNotFoundException {
+  void decodeSimpleSentance() throws IOException {
     MorseCodeTree mct = new MorseCodeTree();
     String inputMorse = "... .--. .... -.-- -. -..-  --- ..-.  -... .-.. .- -.-. -.-  --.- ..- .- .-. - --..  .--- ..- -.. --. .  -- -.--  ...- --- .--";
     String outputAlpha = "sphynx of black quartz judge my vow";
@@ -18,7 +21,7 @@ class DecodeTests {
   }
   
   @Test
-  void decodeComplexSentance() throws FileNotFoundException {
+  void decodeComplexSentance() throws IOException {
     MorseCodeTree mct = new MorseCodeTree();
     String inputMorse = "... .--. .... -.-- -. -..-  --- ..-.  -... .-.. .- -.-. -.-  --.- ..- .- .-. - --.. --··--  .--- ..- -.. --. .  -- -.--  ...- --- .-- -·-·--";
     String outputAlpha = "sphynx of black quartz, judge my vow!";
@@ -27,7 +30,7 @@ class DecodeTests {
   }
   
   @Test
-  void decodeNumerals() throws FileNotFoundException {
+  void decodeNumerals() throws IOException {
     MorseCodeTree mct = new MorseCodeTree();
     String inputMorse = "----- .---- ..--- ...-- ....- ..... -.... --... ---.. ----.";
     String outputAlpha= "0123456789";
@@ -36,7 +39,7 @@ class DecodeTests {
   }
   
   @Test
-  void decodeStdSpecialChars() throws FileNotFoundException {
+  void decodeStdSpecialChars() throws IOException {
     MorseCodeTree mct = new MorseCodeTree();
     String inputMorse = "-·-·-- ·--·-· ···-··- ·-··· -·--· -·--·- -····- ··--·- -···- ·-·-· --··-- ·-·-·- -··-· ··--·· -·-·-· ---··· ·----· ·-··-·";
     String outputAlpha = "!@#$%^&*()-_=+,<.>/?|\\;:'\"~`";

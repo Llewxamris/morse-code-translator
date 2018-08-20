@@ -1,4 +1,4 @@
-package org.maxwellhaley.mct;
+package com.maxwellhaley.mct;
 
 import java.awt.EventQueue;
 
@@ -6,10 +6,14 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+
+import com.maxwellhaley.mct.datastructure.MorseCodeTree;
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -50,7 +54,7 @@ public class MorseCodeTranslator {
   private void initialize() {
     try {
       morse = new MorseCodeTree();
-    } catch (FileNotFoundException e1) {
+    } catch (IOException e1) {
       // TODO Auto-generated catch block
       e1.printStackTrace();
     }
