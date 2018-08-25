@@ -5,7 +5,7 @@
 
 	<groupId>com.maxwellhaley</groupId>
 	<artifactId>morse-code-translator</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>morse-code-translator</name>
 
 	<properties>
