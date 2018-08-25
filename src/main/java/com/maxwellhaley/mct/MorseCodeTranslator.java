@@ -24,26 +24,19 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
-
 import com.maxwellhaley.mct.datastructure.MorseCodeTree;
 
-import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.Toolkit;
 
 public class MorseCodeTranslator {
 
   private JFrame frmMorseCodeTranslator;
   private MorseCodeTree morse;
-  private JTextPane textPane;
 
   /**
    * Launch the application.

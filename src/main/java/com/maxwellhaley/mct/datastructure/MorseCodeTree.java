@@ -20,9 +20,10 @@
 
 package com.maxwellhaley.mct.datastructure;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -92,11 +93,14 @@ public class MorseCodeTree {
   }
 
   private void init() throws IOException {
-    String morseCodeTableFileLocation = "src/main/resources/morseCodeTable.txt";
+    InputStream inputStream = getClass()
+            .getResourceAsStream("/morseCodeTable.txt");
+    BufferedReader reader = new BufferedReader(
+            new InputStreamReader(inputStream));
     this.root = new MorseCodeNode("");
 
-    try (Stream<String> stream = Files
-            .lines(Paths.get(morseCodeTableFileLocation))) {
+    try (Stream<String> stream = reader
+            .lines()) {
 
       stream.forEach(new Consumer<String>() {
 
@@ -136,7 +140,7 @@ public class MorseCodeTree {
       Stack<Character> morseSymbolStack = new Stack<Character>();
       MorseCodeNode currNode = node;
       boolean rootFound = false;
-      
+
       if (currNode.getValue().equals("")) {
         rootFound = true;
       }
