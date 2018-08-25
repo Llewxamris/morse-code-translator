@@ -33,7 +33,7 @@
 					<target>${java-version}</target>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.21.0</version>
@@ -45,7 +45,22 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>com.maxwellhaley.mct.MorseCodeTranslator</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-	
+
 </project>
