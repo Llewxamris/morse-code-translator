@@ -11,31 +11,16 @@ import java.util.stream.Stream;
 
 public class MorseCodeTree {
 
-  private MorseCodeNode root;
+  private MorseCodeNode root = new MorseCodeNode("");
 
   public MorseCodeTree() throws IOException {
-      this.init();
+    this.init();
   }
 
   public String encode(String message) {
     message = message.trim().toLowerCase();
 
-    Queue<MorseCodeNode> nodes = new LinkedList<>();
-    Queue<MorseCodeNode> traversedNodes = new LinkedList<>();
-    nodes.add(this.root);
-
-    while (!nodes.isEmpty()) {
-      MorseCodeNode node = nodes.remove();
-      traversedNodes.add(node);
-
-      if (node.getLeftChildNode() != null) {
-        nodes.add(node.getLeftChildNode());
-      }
-
-      if (node.getRightChildNode() != null) {
-        nodes.add(node.getRightChildNode());
-      }
-    }
+    Queue<MorseCodeNode> traversedNodes = postOrderTraversal();
 
     String[] morseSymbols = this.generateMorseArray(traversedNodes);
     String encodedMessage = "";
@@ -43,7 +28,7 @@ public class MorseCodeTree {
     for (int k = 0; k < message.length(); k++) {
       if (message.charAt(k) == ' ') {
         encodedMessage.trim();
-        encodedMessage += "  ";
+        encodedMessage += " ";
       } else {
         if (Character.isLetter(message.charAt(k))) {
           int asci = (int) message.charAt(k);
@@ -51,7 +36,7 @@ public class MorseCodeTree {
         }
       }
     }
-    return encodedMessage;
+    return encodedMessage.trim();
   }
 
   public String decode(String message) {
@@ -87,7 +72,7 @@ public class MorseCodeTree {
   }
 
   private void init() throws IOException {
-    String morseCodeTableFileLocation = "moreseCodeTable.txt";
+    String morseCodeTableFileLocation = "src/main/resources/morseCodeTable.txt";
     this.root = new MorseCodeNode("");
 
     try (Stream<String> stream = Files
@@ -125,20 +110,27 @@ public class MorseCodeTree {
   private String[] generateMorseArray(Queue<MorseCodeNode> traversedNodes) {
     String[] morseSymbolArray = new String[26];
 
+    // for (int i = traversedNodes.size(); i > 0; i--) {
     for (MorseCodeNode node : traversedNodes) {
+      // MorseCodeNode node = traversedNodes.
       Stack<Character> morseSymbolStack = new Stack<Character>();
+      MorseCodeNode currNode = node;
       boolean rootFound = false;
+      
+      if (currNode.getValue().equals("")) {
+        rootFound = true;
+      }
 
       while (!rootFound) {
-        if (!node.value.equals(" ")) {
-          if (node.getParentNode().getLeftChildNode().equals(node)) {
+        if (!currNode.value.equals("")) {
+          if (currNode.getParentNode().getLeftChildNode().equals(currNode)) {
             morseSymbolStack.push('.');
+            currNode = currNode.getParentNode();
           } else {
             morseSymbolStack.push('-');
+            currNode = currNode.getParentNode();
           }
-        }
-
-        if (node.getParentNode().value.equals(" ")) {
+        } else {
           String morseSymbol = "";
           char alpha = node.value.charAt(0);
           rootFound = true;
@@ -154,6 +146,28 @@ public class MorseCodeTree {
     }
 
     return morseSymbolArray;
+  }
+
+  private Queue<MorseCodeNode> postOrderTraversal() {
+    Queue<MorseCodeNode> traversedNodes = new LinkedList<>();
+    traversedNodes = postOrderTraversal(root.getLeftChildNode(),
+            traversedNodes);
+    traversedNodes = postOrderTraversal(root.getRightChildNode(),
+            traversedNodes);
+    traversedNodes.add(root);
+    return traversedNodes;
+  }
+
+  private Queue<MorseCodeNode> postOrderTraversal(MorseCodeNode node,
+          Queue<MorseCodeNode> traversedNodes) {
+    if (node != null) {
+      traversedNodes = postOrderTraversal(node.getLeftChildNode(),
+              traversedNodes);
+      traversedNodes = postOrderTraversal(node.getRightChildNode(),
+              traversedNodes);
+      traversedNodes.add(node);
+    }
+    return traversedNodes;
   }
 
 }
