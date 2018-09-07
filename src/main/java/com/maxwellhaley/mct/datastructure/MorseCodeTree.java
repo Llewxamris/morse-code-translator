@@ -30,20 +30,47 @@ import java.util.Stack;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+/**
+ * Represents a binary tree tailored for use in the Morse Code Translator.
+ * 
+ * @author Maxwell Haley
+ * @since 2018/08/15
+ */
 public class MorseCodeTree {
 
-  private MorseCodeNode root = new MorseCodeNode("");
+  /** The root node of the tree */
+  private MorseCodeNode root;
 
+  /**
+   * Default constructor for the tree. Calls the method {@link this#init()}
+   * 
+   * @throws IOException
+   */
   public MorseCodeTree() throws IOException {
     this.init();
   }
 
+  /**
+   * Encodes a plaintext message to morse code. Calls
+   * {@link this#postOrderTraversal()} to order the nodes in a way that is
+   * better for traversal. Passes the ordered nodes to
+   * {@link this#generateMorseArray(Queue)} to generate an array with each morse
+   * code symbol.
+   * 
+   * @param message the message to be encoded
+   * @return the message encoded as morse code as a {@code String}
+   */
   public String encode(String message) {
     message = message.trim().toLowerCase();
 
+    // Post order starts from the bottom of the left branches to the child of
+    // root, then the same on the right branches, then the node itself. This is
+    // the best ordering for building our morse code symbols based on the
+    // location of each node
     Queue<MorseCodeNode> traversedNodes = postOrderTraversal();
 
-    String[] morseSymbols = this.generateMorseArray(traversedNodes);
+    // Get the array of morse code symbols
+    String[] morseSymbols = generateMorseArray(traversedNodes);
     String encodedMessage = "";
 
     for (int k = 0; k < message.length(); k++) {
@@ -52,14 +79,24 @@ public class MorseCodeTree {
         encodedMessage += " ";
       } else {
         if (Character.isLetter(message.charAt(k))) {
-          int asci = (int) message.charAt(k);
-          encodedMessage += morseSymbols[asci - 97] + " ";
+          // Lowercase 'a' has the ASCII value of 97, 'b' of 98, etc.
+          // By subtracting 97 from the ASCII value of each char, we get it's
+          // position in the array.
+          int ascii = (int) message.charAt(k);
+          encodedMessage += morseSymbols[ascii - 97] + " ";
         }
       }
     }
     return encodedMessage.trim();
   }
 
+  /**
+   * Decodes a morese code message to plaintext. Crawls down the morse code tree
+   * to find which character a morse symbol represents
+   * 
+   * @param message the message to be encoded
+   * @return the message decoded as a {@code String}
+   */
   public String decode(String message) {
     String[] morseSymbols = message.split(" ");
     String decodedMessage = "";
@@ -92,6 +129,13 @@ public class MorseCodeTree {
     return decodedMessage;
   }
 
+  /**
+   * Creates the morse code tree. Loads in the {@code morseCodeTable.txt} file.
+   * For each line, it grabs the character and stores it in the tree based on
+   * the following morse code symbol.
+   * 
+   * @throws IOException
+   */
   private void init() throws IOException {
     InputStream inputStream = getClass()
             .getResourceAsStream("/morseCodeTable.txt");
@@ -101,7 +145,6 @@ public class MorseCodeTree {
 
     try (Stream<String> stream = reader
             .lines()) {
-
       stream.forEach(new Consumer<String>() {
 
         @Override
@@ -131,12 +174,18 @@ public class MorseCodeTree {
     }
   }
 
+  /**
+   * Creates the morse code array based on a pre-traversed queue of
+   * {@link MorseCodeNode}s. Creates the morese code symbols by crawling up the
+   * morse code tree, until it finds the root.
+   * 
+   * @param traversedNodes
+   * @return
+   */
   private String[] generateMorseArray(Queue<MorseCodeNode> traversedNodes) {
     String[] morseSymbolArray = new String[26];
 
-    // for (int i = traversedNodes.size(); i > 0; i--) {
     for (MorseCodeNode node : traversedNodes) {
-      // MorseCodeNode node = traversedNodes.
       Stack<Character> morseSymbolStack = new Stack<Character>();
       MorseCodeNode currNode = node;
       boolean rootFound = false;
@@ -163,8 +212,11 @@ public class MorseCodeTree {
             morseSymbol += morseSymbolStack.pop();
           }
 
-          int asci = (int) alpha;
-          morseSymbolArray[asci - 97] = morseSymbol;
+          // Lowercase 'a' has the ASCII value of 97, 'b' of 98, etc.
+          // By subtracting 97 from the ASCII value of each char, we get it's
+          // position in the array.
+          int ascii = (int) alpha;
+          morseSymbolArray[ascii - 97] = morseSymbol;
         }
       }
     }
@@ -172,6 +224,13 @@ public class MorseCodeTree {
     return morseSymbolArray;
   }
 
+  /**
+   * Creates a queue of nodes that have been enqueue "post-order". Calls
+   * {@link this#postOrderTraversal(MorseCodeNode, Queue)} to continue the
+   * ordering in a recursive fashion.
+   * 
+   * @return traversedNodes the nodes post-ordered in a queue.
+   */
   private Queue<MorseCodeNode> postOrderTraversal() {
     Queue<MorseCodeNode> traversedNodes = new LinkedList<>();
     traversedNodes = postOrderTraversal(root.getLeftChildNode(),
@@ -182,6 +241,12 @@ public class MorseCodeTree {
     return traversedNodes;
   }
 
+  /**
+   * Creates a queue of nodes that have been enqueued "post-order". Called by
+   * {@link this#postOrderTraversal()} and itself recursively. 
+   * @param node The current node being traversed
+   * @param @return traversedNodes The current queue of traversed nodes
+   */
   private Queue<MorseCodeNode> postOrderTraversal(MorseCodeNode node,
           Queue<MorseCodeNode> traversedNodes) {
     if (node != null) {
