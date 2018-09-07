@@ -5,8 +5,8 @@
 
 	<groupId>com.maxwellhaley</groupId>
 	<artifactId>morse-code-translator</artifactId>
-	<version>1.0.1</version>
-	<name>morse-code-translator</name>
+	<version>1.0.2</version>
+	<name>Morse Code Translator</name>
 
 	<properties>
 		<java-version>1.8</java-version>
