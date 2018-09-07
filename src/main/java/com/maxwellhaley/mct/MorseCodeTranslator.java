@@ -6,7 +6,7 @@
  * 
  * Morse Code Translator is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
+ * Software Foundation, either version 2 of the License, or (at your option) any
  * later version.
  * 
  * Morse Code Translator is distributed in the hope that it will be useful, but
@@ -35,11 +35,16 @@ import java.awt.Font;
 
 public class MorseCodeTranslator {
 
+  /** The main window for the application */
   private JFrame frmMorseCodeTranslator;
+
+  /** The morse code tree */
   private MorseCodeTree morse;
 
   /**
-   * Launch the application.
+   * The main method. Creates a new translator and shows the window.
+   * 
+   * @param args
    */
   public static void main(String[] args) {
     EventQueue.invokeLater(new Runnable() {
@@ -55,24 +60,22 @@ public class MorseCodeTranslator {
   }
 
   /**
-   * Create the application.
+   * Calls {@link this#initialize()} to build the frame.
    */
   public MorseCodeTranslator() {
     initialize();
   }
 
   /**
-   * Initialize the contents of the frame.
+   * Builds the entire UI.
    */
   private void initialize() {
     try {
       morse = new MorseCodeTree();
     } catch (IOException e1) {
-      // TODO Auto-generated catch block
       e1.printStackTrace();
     }
     frmMorseCodeTranslator = new JFrame();
-    // frmMorseCodeTranslator.setIconImage(Toolkit.getDefaultToolkit().getImage(MorseCodeTranslator.class.getResource("/javax/swing/plaf/metal/icons/ocean/info.png")));
     frmMorseCodeTranslator.setTitle("Morse Code Translator");
     frmMorseCodeTranslator.setBounds(100, 100, 610, 488);
     frmMorseCodeTranslator.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
